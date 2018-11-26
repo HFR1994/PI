@@ -9,7 +9,7 @@ export class ApiService {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             },
-            baseURL: "http://localhost:3000/"
+            baseURL: "https://el-equipo-perro.mybluemix.net/"
         });
     }
 
