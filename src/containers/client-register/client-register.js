@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import { Button, FormGroup, FormControl } from "react-bootstrap";
+import { ApiService } from '../../components/ApiServices'
 
 class ClientRegister extends Component {
   constructor() {
@@ -11,6 +11,7 @@ class ClientRegister extends Component {
       password: '',
       redirectTo: null,
     };
+    this.apiService = new ApiService();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,17 +30,15 @@ class ClientRegister extends Component {
       company: {
         user: this.state.rfc,
         password: this.state.password
-      },
-      header: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
       }
-    }
+    };
 
-    axios.post('https://el-equipo-perro.mybluemix.net/company/register', datos)
-      .then(response => {
-        console.log(response.data)
-        if (response.data.status === 200) {
+    this.apiService.post({
+        url: "/company/register",
+        params: datos
+    }).then(response => {
+        console.log(response)
+        if (response.status === 200) {
           this.setState({
             redirectTo: '/'
           })
